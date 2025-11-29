@@ -1,5 +1,10 @@
 # This script demonstrates how to use the Google GenAI Live API to interact with the Gemini model using audio.
 # It reads a local audio file, sends it to the model, and saves the model's audio response.
+#
+# This script demonstrates a direct connection: Client (this Python script) -> Google API Server
+# There is NO intermediate backend server. This script acts as the "client" and connects directly 
+# to Google's Live API servers using WebSockets (handled by the genai.Client SDK).
+# This is the "Client-to-server" approach where "server" = Google's API servers.
 
 import os
 import asyncio  # Used for asynchronous execution (the API is async)
@@ -63,5 +68,6 @@ async def main():
             async for response in session.receive():
                 if response.data is not None:
                     wf.writeframes(response.data)
+
 if __name__ == "__main__":
     asyncio.run(main())
